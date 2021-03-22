@@ -13,16 +13,17 @@ defmodule EventsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", EventsWeb do
-    pipe_through :browser
+  # Events API endpoint configuration
+  scope "/api/v1", EventsWeb do
+    pipe_through :api
 
-    get "/", PageController, :index
+    # add endpoints for resources
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/posts", PostController, except: [:new, :edit]
+    resources "/comments", CommentController, except: [:new, :edit]
+    resources "/responses", ResponseController, except: [:new, :edit]
+
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", EventsWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
