@@ -10,7 +10,7 @@ defmodule Events.Posts.Post do
 
     belongs_to :user, Events.Users.User
     has_many :comments, Events.Comments.Comment
-    has_many :responses, Events.Responses.Response
+    has_many :invitees, Events.Invitees.Invitee
 
     timestamps()
   end
