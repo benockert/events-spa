@@ -22,6 +22,7 @@ defmodule EventsWeb.Router do
     resources "/posts", PostController, except: [:new, :edit]
     resources "/comments", CommentController, except: [:new, :edit]
     resources "/invitees", InviteeController, except: [:new, :edit]
+    resources "/session", SessionController, only: [:create]
 
   end
 

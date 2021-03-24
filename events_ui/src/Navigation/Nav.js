@@ -1,5 +1,53 @@
-import { Nav } from 'react-bootstrap';
+import { Nav, Row, Col, Form, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { useState } from 'react';
+
+import { api_login } from '../api';
+
+function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  function on_submit(ev) {
+    ev.preventDefault();
+    api_login(email, pass);
+  }
+
+  return (
+    <Form onSubmit={on_submit} inline>
+      <Form.Control name="name"
+                    type="text"
+                    onChange={(ev) => setEmail(ev.target.value)}
+                    value={email} />
+      <Form.Control name="password"
+                    type="password"
+                    onChange={(ev) => setPass(ev.target.value)}
+                    value={pass} />
+      <Button variant="primary" type="submit">
+        Login
+      </Button>
+    </Form>
+  );
+}
+
+function SessionInfo({session}) {
+  return (
+    <p>Logged in as {session.name}</p>
+  );
+}
+
+function LOI({session}) {
+  if (session) {
+    return <SessionInfo session={session} />;
+  }
+  else {
+    return <LoginForm />;
+  }
+}
+
+const LoginOrInfo = connect(
+  ({session}) => ({session}))(LOI);
 
 function Link({to, children}) {
   return (
@@ -11,22 +59,18 @@ function Link({to, children}) {
   );
 }
 
-//adds navigation links to the header of each page
-export default function Navigation() {
+export default function AppNavigation() {
   return (
-    <Nav variant="pills">
-      <Link to="/">Events</Link>
-      <Link to="/users">Users</Link>
-    </Nav>
+    <Row>
+      <Col>
+        <Nav variant="pills">
+          <Link to="/">Feed</Link>
+          <Link to="/users">Users</Link>
+        </Nav>
+      </Col>
+      <Col>
+        <LoginOrInfo />
+      </Col>
+    </Row>
   );
 }
-
-//Possibly add events card nav here?
-// export default function EventNav() {
-//   return (
-//     <Nav variant="pills">
-//       <Link to="/">Events</Link>
-//       <Link to="/users">Users</Link>
-//     </Nav>
-//   );
-// }

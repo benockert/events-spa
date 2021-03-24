@@ -15,11 +15,13 @@ alias Events.Posts.Post
 alias Events.Invitees.Invitee
 alias Events.Comments.Comment
 
-joseph = Repo.insert!(%User{name: "Joseph Aoun", email: "aoun.j@northeastern.edu", password_hash: ""})
-andrade = Repo.insert!(%User{name: "Andrade Ferron", email: "ferron.a@northeastern.edu", password_hash: ""})
-nat = Repo.insert!(%User{name: "Nat Tuck", email: "tuck.n@northeastern.edu", password_hash: ""})
-benjamin = Repo.insert!(%User{name: "Benjamin Ockert", email: "ockert.b@northeastern.edu", password_hash: ""})
-steven = Repo.insert!(%User{name: "Steven Yoo", email: "yoo.s@northeastern.edu", password_hash: ""})
+pass_hash = Argon2.hash_pwd_salt("abc123")
+
+joseph = Repo.insert!(%User{name: "Joseph Aoun", email: "aoun.j@northeastern.edu", password_hash: pass_hash})
+andrade = Repo.insert!(%User{name: "Andrade Ferron", email: "ferron.a@northeastern.edu", password_hash: pass_hash})
+nat = Repo.insert!(%User{name: "Nat Tuck", email: "tuck.n@northeastern.edu", password_hash: pass_hash})
+benjamin = Repo.insert!(%User{name: "Benjamin Ockert", email: "ockert.b@northeastern.edu", password_hash: pass_hash})
+steven = Repo.insert!(%User{name: "Steven Yoo", email: "yoo.s@northeastern.edu", password_hash: pass_hash})
 
 commencement = Repo.insert!(%Post{user_id: joseph.id, title: "Commencement",
                                       date: "05/07/2021",
@@ -27,7 +29,7 @@ commencement = Repo.insert!(%Post{user_id: joseph.id, title: "Commencement",
 
 dayoff = Repo.insert!(%Post{user_id: andrade.id, title: "Mental Health Day",
                                       date: "03/24/2021",
-                                      description: "A day off for students during the Spring 2021 semester"z})
+                                      description: "A day off for students during the Spring 2021 semester"})
 
 Repo.insert!(%Invitee{post_id: commencement.id, email: "ockert.b@northeastern.edu", response: "Yes", user_id: benjamin.id})
 Repo.insert!(%Invitee{post_id: commencement.id, email: "yoo.s@northeastern.edu", response: "No", user_id: steven.id})

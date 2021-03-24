@@ -1,6 +1,18 @@
 import { createStore, combineReducers } from 'redux';
 
+//-------------------------SESSION---------------------------
+//user session (initially null)
+function session(state=null, action) {
+  switch (action.type) {
+    case 'session/set':
+      return action.data
+    default:
+      return state;
+  }
+}
+
 //--------------------------USERS---------------------------
+//list of users
 function users(state = [], action) {
     switch (action.type) {
     case 'users/set':
@@ -10,6 +22,7 @@ function users(state = [], action) {
     }
 }
 
+//data of current user being edited
 function user_form(state = {}, action) {
     switch (action.type) {
     case 'user_form/set':
@@ -20,6 +33,7 @@ function user_form(state = {}, action) {
 }
 
 //--------------------------POSTS---------------------------
+//list of posts
 function posts(state = [], action) {
     switch (action.type) {
     case 'posts/set':
@@ -33,8 +47,10 @@ function posts(state = [], action) {
 function root_reducer(state, action) {
     console.log("root_reducer", state, action);
     let reducer = combineReducers({
-        users, user_form, posts
+        session, users, user_form, posts
     });
+
+    console.log("state", reducer(state, action))
     return reducer(state, action);
 }
 

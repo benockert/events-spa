@@ -2,10 +2,19 @@ import store from './store';
 
 const url = "http://localhost:4000/api/v1";
 
-export async function api_get(path) {
+async function api_get(path) {
     let text = await fetch(url + path, {});
     let resp = await text.json();
     return resp.data;
+}
+
+async function api_post(path, data) {
+  let req = {method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)};
+  let text = await fetch(url + path, req);
+  let resp = await text.json();
+  return resp;
 }
 
 export function get_users() {
@@ -34,6 +43,14 @@ export function get_comments() {
         type: 'comments/set',
         data: data,
     }));
+}
+
+export function api_login(email, password) {
+  api_post("/session", {email, password}).then((data) => {
+    console.log("login response", data);
+    let action = {type: 'session/set', data: data}
+    store.dispatch(action);
+  });
 }
 
 export function load_defaults() {
