@@ -7,16 +7,14 @@ defmodule EventsWeb.PostControllerTest do
   @create_attrs %{
     date: "some date",
     description: "some description",
-    invitees: "some invitees",
     title: "some title"
   }
   @update_attrs %{
     date: "some updated date",
     description: "some updated description",
-    invitees: "some updated invitees",
     title: "some updated title"
   }
-  @invalid_attrs %{date: nil, description: nil, invitees: nil, title: nil}
+  @invalid_attrs %{date: nil, description: nil, title: nil}
 
   def fixture(:post) do
     {:ok, post} = Posts.create_post(@create_attrs)
@@ -45,7 +43,6 @@ defmodule EventsWeb.PostControllerTest do
                "id" => id,
                "date" => "some date",
                "description" => "some description",
-               "invitees" => "some invitees",
                "title" => "some title"
              } = json_response(conn, 200)["data"]
     end
@@ -69,7 +66,6 @@ defmodule EventsWeb.PostControllerTest do
                "id" => id,
                "date" => "some updated date",
                "description" => "some updated description",
-               "invitees" => "some updated invitees",
                "title" => "some updated title"
              } = json_response(conn, 200)["data"]
     end

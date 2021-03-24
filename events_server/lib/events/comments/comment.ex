@@ -6,7 +6,7 @@ defmodule Events.Comments.Comment do
     field :body, :string
 
     belongs_to :user, Events.Users.User
-    belongs_to :post, Events.Post.Posts
+    belongs_to :post, Events.Posts.Post
 
     timestamps()
   end

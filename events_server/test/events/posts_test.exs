@@ -6,9 +6,9 @@ defmodule Events.PostsTest do
   describe "posts" do
     alias Events.Posts.Post
 
-    @valid_attrs %{date: "some date", description: "some description", invitees: "some invitees", title: "some title"}
-    @update_attrs %{date: "some updated date", description: "some updated description", invitees: "some updated invitees", title: "some updated title"}
-    @invalid_attrs %{date: nil, description: nil, invitees: nil, title: nil}
+    @valid_attrs %{date: "some date", description: "some description", title: "some title"}
+    @update_attrs %{date: "some updated date", description: "some updated description", title: "some updated title"}
+    @invalid_attrs %{date: nil, description: nil, title: nil}
 
     def post_fixture(attrs \\ %{}) do
       {:ok, post} =
@@ -33,7 +33,6 @@ defmodule Events.PostsTest do
       assert {:ok, %Post{} = post} = Posts.create_post(@valid_attrs)
       assert post.date == "some date"
       assert post.description == "some description"
-      assert post.invitees == "some invitees"
       assert post.title == "some title"
     end
 
@@ -46,7 +45,6 @@ defmodule Events.PostsTest do
       assert {:ok, %Post{} = post} = Posts.update_post(post, @update_attrs)
       assert post.date == "some updated date"
       assert post.description == "some updated description"
-      assert post.invitees == "some updated invitees"
       assert post.title == "some updated title"
     end
 

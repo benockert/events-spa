@@ -1,0 +1,44 @@
+import store from './store';
+
+const url = "http://localhost:4000/api/v1";
+
+export async function api_get(path) {
+    let text = await fetch(url + path, {});
+    let resp = await text.json();
+    return resp.data;
+}
+
+export function get_users() {
+    api_get("/users").then((data) => store.dispatch({
+        type: 'users/set',
+        data: data,
+    }));
+}
+
+export function get_posts() {
+    api_get("/posts").then((data) => store.dispatch({
+        type: 'posts/set',
+        data: data,
+    }));
+}
+
+export function get_invitees() {
+    api_get("/invitees").then((data) => store.dispatch({
+        type: 'invitees/set',
+        data: data,
+    }));
+}
+
+export function get_comments() {
+    api_get("/comments").then((data) => store.dispatch({
+        type: 'comments/set',
+        data: data,
+    }));
+}
+
+export function load_defaults() {
+    get_users();
+    get_posts();
+    get_invitees();
+    get_comments();
+}

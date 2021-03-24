@@ -5,7 +5,7 @@ defmodule Events.Users.User do
   schema "users" do
     field :email, :string
     field :name, :string
-    field :password, :string
+    field :password_hash, :string
 
     has_many :posts, Events.Posts.Post
     has_many :comments, Events.Comments.Comment
@@ -16,7 +16,7 @@ defmodule Events.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(attrs, [:name, :email, :password_hash])
+    |> validate_required([:name, :email, :password_hash])
   end
 end

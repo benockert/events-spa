@@ -6,7 +6,6 @@ defmodule Events.Repo.Migrations.CreatePosts do
       add :title, :string, null: false
       add :date, :string, null: false
       add :description, :text, null: false
-      add :invitees, :string, null: false
       add :user_id, references(:users, on_delete: :nothing), null: false
 
       timestamps()

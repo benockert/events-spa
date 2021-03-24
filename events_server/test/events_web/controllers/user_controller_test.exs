@@ -7,14 +7,14 @@ defmodule EventsWeb.UserControllerTest do
   @create_attrs %{
     email: "some email",
     name: "some name",
-    password: "some password"
+    password_hash: "some password"
   }
   @update_attrs %{
     email: "some updated email",
     name: "some updated name",
-    password: "some updated password"
+    password_hash: "some updated password"
   }
-  @invalid_attrs %{email: nil, name: nil, password: nil}
+  @invalid_attrs %{email: nil, name: nil, password_hash: nil}
 
   def fixture(:user) do
     {:ok, user} = Users.create_user(@create_attrs)
@@ -43,7 +43,7 @@ defmodule EventsWeb.UserControllerTest do
                "id" => id,
                "email" => "some email",
                "name" => "some name",
-               "password" => "some password"
+               "password_hash" => "some password"
              } = json_response(conn, 200)["data"]
     end
 
@@ -66,7 +66,7 @@ defmodule EventsWeb.UserControllerTest do
                "id" => id,
                "email" => "some updated email",
                "name" => "some updated name",
-               "password" => "some updated password"
+               "password_hash" => "some updated password"
              } = json_response(conn, 200)["data"]
     end
 

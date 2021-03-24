@@ -4,7 +4,7 @@ use Mix.Config
 config :events, Events.Repo,
   username: "events_spa",
   password: "eventspa123",
-  database: "events_dev",
+  database: "events_spa_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -21,6 +21,12 @@ config :events, EventsWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: []
+
+
+config :cors_plug,
+  origin: ["http://localhost:3000"],
+  max_age: 86400,
+  methods: ["GET", "POST", "PATCH", "DELETE"]
 
 # ## SSL Support
 #
