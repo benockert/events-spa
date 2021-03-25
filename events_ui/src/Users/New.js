@@ -45,7 +45,7 @@ function NewUser() {
   function onSubmit(ev) {
     ev.preventDefault();
     console.log(user);
-
+    //get rid of the extra password and pass_msg entry
     let data = pick(user, ['name', 'email', 'password']);
     new_user(data).then(() => {
       get_users();

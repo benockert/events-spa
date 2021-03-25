@@ -12,6 +12,8 @@ defmodule EventsWeb.PostView do
   end
 
   def render("post.json", %{post: post}) do
+    IO.inspect("GOt here")
+    IO.inspect(post)
     %{id: post.id,
       title: post.title,
       date: post.date,

@@ -55,6 +55,7 @@ defmodule Events.Posts do
   """
   def create_post(attrs \\ %{}) do
     %Post{}
+    |> Repo.preload(:user)
     |> Post.changeset(attrs)
     |> Repo.insert()
   end

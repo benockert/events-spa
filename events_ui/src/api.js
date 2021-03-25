@@ -38,6 +38,7 @@ export function get_posts() {
 }
 
 export function new_post(post) {
+  console.log(post)
   return api_post("/posts", {post});
 }
 
@@ -76,8 +77,8 @@ export function api_login(email, password) {
 }
 
 export function load_defaults() {
-    get_users();
     get_posts();
+    get_users();
     //get_responses();
     //get_comments();
 }
