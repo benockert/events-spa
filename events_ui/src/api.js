@@ -24,6 +24,10 @@ export function get_users() {
     }));
 }
 
+export function new_user(user) {
+  return api_post("/users", {user});
+}
+
 export function get_posts() {
     api_get("/posts").then((data) => store.dispatch({
         type: 'posts/set',
@@ -48,8 +52,20 @@ export function get_comments() {
 export function api_login(email, password) {
   api_post("/session", {email, password}).then((data) => {
     console.log("login response", data);
-    let action = {type: 'session/set', data: data}
-    store.dispatch(action);
+    if (data.session) {
+      let action = {
+        type: 'session/set',
+        data: data.session,
+      }
+      store.dispatch(action);
+    }
+    else if (data.error) {
+      let action = {
+        type: 'error/set',
+        data: data.error,
+      };
+      store.dispatch(action);
+    }
   });
 }
 

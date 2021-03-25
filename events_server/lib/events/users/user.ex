@@ -16,7 +16,19 @@ defmodule Events.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password_hash])
+    |> cast(attrs, [:name, :email])
+    |> add_hashed_pwd(attrs["password"])
     |> validate_required([:name, :email, :password_hash])
   end
+
+  # if no password given, just return the unchanged Changeset
+  def add_hashed_pwd(changeset, nil) do
+    changeset
+  end
+
+  # hash the given password and update the password field of the Changeset
+  def add_hashed_pwd(changeset, pwd) do
+    change(changeset, Argon2.add_hash(pwd))
+  end
+
 end

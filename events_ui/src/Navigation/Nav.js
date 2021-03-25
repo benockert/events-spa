@@ -1,9 +1,24 @@
-import { Nav, Row, Col, Form, Button } from 'react-bootstrap';
+import { Nav, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
 import { api_login } from '../api';
+import store from '../store';
+
+function SessionState({session}) {
+  function logout(ev) {
+    ev.preventDefault();
+    store.dispatch({ type: 'session/clear' });
+  }
+
+  return (
+    <p>
+      Logged in as {session.name}
+      <Button onClick={logout}>Logout</Button>
+    </p>
+  );
+}
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -31,15 +46,9 @@ function LoginForm() {
   );
 }
 
-function SessionInfo({session}) {
-  return (
-    <p>Logged in as {session.name}</p>
-  );
-}
-
 function LOI({session}) {
   if (session) {
-    return <SessionInfo session={session} />;
+    return <SessionState session={session} />;
   }
   else {
     return <LoginForm />;
@@ -59,18 +68,35 @@ function Link({to, children}) {
   );
 }
 
-export default function AppNavigation() {
+function AppNavigation({error}) {
+  let error_banner = null;
+
+  if (error) {
+    error_banner = (
+      <Row>
+        <Col>
+          <Alert variant="danger">{error}</Alert>
+        </Col>
+      </Row>
+    );
+  }
+
   return (
-    <Row>
-      <Col>
-        <Nav variant="pills">
-          <Link to="/">Feed</Link>
-          <Link to="/users">Users</Link>
-        </Nav>
-      </Col>
-      <Col>
-        <LoginOrInfo />
-      </Col>
-    </Row>
+    <div>
+      <Row>
+        <Col>
+          <Nav variant="pills">
+            <Link to="/">Feed</Link>
+            <Link to="/users">Users</Link>
+          </Nav>
+        </Col>
+        <Col>
+          <LoginOrInfo />
+        </Col>
+      </Row>
+      { error_banner }
+    </div>
   );
 }
+
+export default connect(({error}) => ({error}))(AppNavigation);

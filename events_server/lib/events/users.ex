@@ -8,6 +8,15 @@ defmodule Events.Users do
 
   alias Events.Users.User
 
+  # authentication for User
+  def authenticate(email, pass) do
+    user = get_user_by_email!(email)
+    case Argon2.check_pass(user, pass) do
+      {:ok, user} -> user
+      _ -> nil
+    end
+  end
+
   @doc """
   Returns the list of users.
 
