@@ -10,13 +10,24 @@ function NewUser() {
   let history = useHistory();
   const [user, setUser] = useState({name: "", pass1: "", pass2: ""});
 
+  function check_email(email) {
+
+    // from w3resource.com
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+      return ""
+    }
+
+    return "Invalid email address."
+
+  }
+
   function check_pass(p1, p2) {
     if (p1 !== p2) {
       return "Passwords don't match.";
     }
 
     if (p1.length < 8) {
-      return "Password too short.";
+      return "Password is too short.";
     }
 
     return "";
@@ -27,6 +38,7 @@ function NewUser() {
     u1[field] = ev.target.value;
     u1.password = u1.pass1;
     u1.pass_msg = check_pass(u1.pass1, u1.pass2);
+    u1.email_msg = check_email(u1.email);
     setUser(u1);
   }
 
@@ -57,23 +69,25 @@ function NewUser() {
             <Form.Control type="text"
                           onChange={(ev) => update("email", ev)}
                           value={user.email || ""} />
+            <p>{user.email_msg}</p>
           </Form.Group>
           <Form.Group>
             <Form.Label>Password</Form.Label>
             <Form.Control type="password"
                           onChange={(ev) => update("pass1", ev)}
                           value={user.pass1 || ""} />
-            <p>{user.pass_msg}</p>
+
           </Form.Group>
           <Form.Group>
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control type="password"
                           onChange={(ev) => update("pass2", ev)}
                           value={user.pass2 || ""} />
+            <p>{user.pass_msg}</p>
           </Form.Group>
           <Button variant="primary"
                   type="submit"
-                  disabled={user.pass_msg !== ""}>
+                  disabled={user.pass_msg !== "" || user.email_msg !== ""}>
             Save
           </Button>
         </Form>
