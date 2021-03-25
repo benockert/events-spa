@@ -88,7 +88,7 @@ function NewUser() {
           <Button variant="primary"
                   type="submit"
                   disabled={user.pass_msg !== "" || user.email_msg !== ""}>
-            Save
+            Register
           </Button>
         </Form>
       </Col>

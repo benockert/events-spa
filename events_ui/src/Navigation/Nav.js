@@ -15,7 +15,7 @@ function SessionState({session}) {
   return (
     <p>
       Logged in as {session.name}
-      <Button onClick={logout}>Logout</Button>
+      <Button variant="outline-primary" onClick={logout}>Logout</Button>
     </p>
   );
 }
@@ -30,19 +30,24 @@ function LoginForm() {
   }
 
   return (
-    <Form onSubmit={on_submit} inline>
-      <Form.Control name="name"
-                    type="text"
-                    onChange={(ev) => setEmail(ev.target.value)}
-                    value={email} />
-      <Form.Control name="password"
-                    type="password"
-                    onChange={(ev) => setPass(ev.target.value)}
-                    value={pass} />
-      <Button variant="primary" type="submit">
-        Login
-      </Button>
-    </Form>
+    <div>
+      <Form onSubmit={on_submit} inline>
+        <Form.Control name="name"
+                      type="text"
+                      onChange={(ev) => setEmail(ev.target.value)}
+                      value={email} />
+        <Form.Control name="password"
+                      type="password"
+                      onChange={(ev) => setPass(ev.target.value)}
+                      value={pass} />
+        <Button variant="outline-primary" type="submit">
+          Login
+        </Button>
+        <Nav variant="link">
+          <Link to="/users/new">Register</Link>
+        </Nav>
+      </Form>
+    </div>
   );
 }
 
@@ -51,7 +56,7 @@ function LOI({session}) {
     return <SessionState session={session} />;
   }
   else {
-    return <LoginForm />;
+      return <LoginForm />
   }
 }
 
@@ -90,7 +95,7 @@ function AppNavigation({error}) {
             <Link to="/users">Users</Link>
           </Nav>
         </Col>
-        <Col>
+        <Col xs={8}>
           <LoginOrInfo />
         </Col>
       </Row>
