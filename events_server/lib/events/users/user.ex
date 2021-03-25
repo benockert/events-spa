@@ -9,6 +9,7 @@ defmodule Events.Users.User do
 
     has_many :posts, Events.Posts.Post
     has_many :comments, Events.Comments.Comment
+    has_many :responses, Events.Responses.Response
 
     timestamps()
   end

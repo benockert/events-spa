@@ -6,18 +6,20 @@ defmodule Events.Posts.Post do
     field :date, :string
     field :description, :string
     field :title, :string
+    field :invitees, :string
 
     belongs_to :user, Events.Users.User
     has_many :comments, Events.Comments.Comment
-    has_many :invitees, Events.Invitees.Invitee
+    has_many :responses, Events.Responses.Response
 
     timestamps()
   end
 
   @doc false
   def changeset(post, attrs) do
+    IO.inspect("got here in changeset?")
     post
-    |> cast(attrs, [:title, :date, :description, :user_id])
-    |> validate_required([:title, :date, :description, :user_id])
+    |> cast(attrs, [:title, :date, :description, :invitees, :user_id])
+    |> validate_required([:title, :date, :description, :invitees, :user_id])
   end
 end

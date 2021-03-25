@@ -12,7 +12,9 @@ async function api_post(path, data) {
   let req = {method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)};
+  console.log("to be sent", req)
   let text = await fetch(url + path, req);
+  console.log("response", text);
   let resp = await text.json();
   return resp;
 }
@@ -35,12 +37,16 @@ export function get_posts() {
     }));
 }
 
-export function get_invitees() {
-    api_get("/invitees").then((data) => store.dispatch({
-        type: 'invitees/set',
-        data: data,
-    }));
+export function new_post(post) {
+  return api_post("/posts", {post});
 }
+
+// export function get_responses() {
+//     api_get("/responses").then((data) => store.dispatch({
+//         type: 'responses/set',
+//         data: data,
+//     }));
+// }
 
 export function get_comments() {
     api_get("/comments").then((data) => store.dispatch({
@@ -72,6 +78,6 @@ export function api_login(email, password) {
 export function load_defaults() {
     get_users();
     get_posts();
-    get_invitees();
-    get_comments();
+    //get_responses();
+    //get_comments();
 }

@@ -5,14 +5,16 @@ import "./App.scss";
 
 //top navigation and login bar
 import Navigation from "./Navigation/Nav";
-//events feed
-import EventsFeed from "./Feed/Feed";
+//events pages
+import EventsFeed from "./Posts/Feed";
+import NewEvent from "./Posts/New"
 //user pages
 import ListUsers from "./Users/List";
 import NewUser from "./Users/New";
 
 function App() {
 
+  // front-end mock router
   return (
     <Container>
       <Navigation />
@@ -25,6 +27,9 @@ function App() {
         </Route>
         <Route path="/users/new" exact>
           <NewUser />
+        </Route>
+        <Route path="/events/new" exact>
+          <NewEvent />
         </Route>
       </Switch>
     </Container>
