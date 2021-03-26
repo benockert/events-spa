@@ -26,7 +26,6 @@ function NewEvent() {
   }
 
   function anyBlank(post) {
-    console.log("blank", post)
     return post.title === "" || post.date === "" || post.description === "";
   }
 

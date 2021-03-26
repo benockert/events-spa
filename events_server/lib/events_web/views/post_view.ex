@@ -12,12 +12,11 @@ defmodule EventsWeb.PostView do
   end
 
   def render("post.json", %{post: post}) do
-    IO.inspect("GOt here")
-    IO.inspect(post)
     %{id: post.id,
       title: post.title,
       date: post.date,
       description: post.description,
+      invitees: post.invitees,
       user: render_one(post.user, UserView, "user.json")}
   end
 end

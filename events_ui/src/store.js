@@ -74,6 +74,17 @@ function posts(state = [], action) {
     }
 }
 
+//------------------------COMMENTS---------------------------
+//list of posts
+function comments(state = [], action) {
+    switch (action.type) {
+    case 'comments/set':
+        return action.data;
+    default:
+        return state;
+    }
+}
+
 //--------------------------ERROR---------------------------
 function error(state = null, action) {
   switch (action.type) {
@@ -90,7 +101,7 @@ function error(state = null, action) {
 function root_reducer(state, action) {
     console.log("root_reducer", state, action);
     let reducer = combineReducers({
-        session, users, posts, error
+        session, users, posts, comments, error
     });
 
     console.log("state", reducer(state, action))

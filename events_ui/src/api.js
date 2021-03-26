@@ -56,6 +56,11 @@ export function get_comments() {
     }));
 }
 
+export function new_comment(comment) {
+  console.log(comment)
+  return api_post("/comments", {comment});
+}
+
 export function api_login(email, password) {
   api_post("/session", {email, password}).then((data) => {
     console.log("login response", data);
@@ -80,5 +85,5 @@ export function load_defaults() {
     get_posts();
     get_users();
     //get_responses();
-    //get_comments();
+    get_comments();
 }

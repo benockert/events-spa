@@ -51,8 +51,10 @@ defmodule Events.Comments do
   """
   def create_comment(attrs \\ %{}) do
     %Comment{}
+    |> Repo.preload(:user)
     |> Comment.changeset(attrs)
     |> Repo.insert()
+
   end
 
   @doc """

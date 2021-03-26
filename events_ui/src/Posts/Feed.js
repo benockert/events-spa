@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 //no photo uploads needed
 
 function Event({post}) {
+  let view_link = "/events/" + post.id
   return (
     <Col>
       <Card style={{ width: '18rem' }}>
@@ -16,8 +17,9 @@ function Event({post}) {
             {post.description}
             <br/>
             <br/>
-            Hosted by {post.user.name}
+            <i>Hosted by {post.user.name}</i>
           </Card.Text>
+          <Link to={view_link}>Show Event</Link>
         </Card.Body>
       </Card>
     </Col>

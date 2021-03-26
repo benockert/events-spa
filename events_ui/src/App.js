@@ -7,7 +7,8 @@ import "./App.scss";
 import Navigation from "./Navigation/Nav";
 //events pages
 import EventsFeed from "./Posts/Feed";
-import NewEvent from "./Posts/New"
+import ShowEvent from "./Posts/View";
+import NewEvent from "./Posts/New";
 //user pages
 import ListUsers from "./Users/List";
 import NewUser from "./Users/New";
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route path="/events/new" exact>
           <NewEvent />
+        </Route>
+        <Route path="/events/:id">
+          <ShowEvent />
         </Route>
       </Switch>
     </Container>
