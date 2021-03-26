@@ -24,7 +24,7 @@ config :events, EventsWeb.Endpoint,
 
 
 config :cors_plug,
-  origin: ["http://localhost:3000"],
+  origin: ["http://events-spa.benockert.site"],
   max_age: 86400,
   methods: ["GET", "POST", "PATCH", "DELETE"]
 
@@ -56,7 +56,6 @@ config :cors_plug,
 config :events, EventsWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/events_web/(live|views)/.*(ex)$",
       ~r"lib/events_web/templates/.*(eex)$"

@@ -7,6 +7,7 @@ defmodule Events.Responses do
   alias Events.Repo
 
   alias Events.Responses.Response
+  alias Events.Users
 
   # creates new default responses
   def create_responses(post) do

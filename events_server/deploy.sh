@@ -9,7 +9,7 @@ mix deps.get --only prod
 mix compile
 
 mix ecto.reset
-mix phx.digest
+
 mix release
 
 echo "Deploy successful..."
