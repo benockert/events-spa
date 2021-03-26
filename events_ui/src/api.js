@@ -42,12 +42,17 @@ export function new_post(post) {
   return api_post("/posts", {post});
 }
 
-// export function get_responses() {
-//     api_get("/responses").then((data) => store.dispatch({
-//         type: 'responses/set',
-//         data: data,
-//     }));
-// }
+export function get_responses() {
+    api_get("/responses").then((data) => store.dispatch({
+        type: 'responses/set',
+        data: data,
+    }));
+}
+
+export function new_response(response) {
+  console.log("response", response)
+  return api_post("/responses", {response});
+}
 
 export function get_comments() {
     api_get("/comments").then((data) => store.dispatch({
@@ -82,8 +87,8 @@ export function api_login(email, password) {
 }
 
 export function load_defaults() {
-    get_posts();
     get_users();
-    //get_responses();
+    get_posts();
+    get_responses();
     get_comments();
 }

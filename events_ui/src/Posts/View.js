@@ -5,6 +5,9 @@ import { useLocation } from 'react-router-dom';
 import NewComment from "../Comments/New";
 import CommentsFeed from "../Comments/Comments";
 
+import NewResponse from "../Responses/New";
+import ResponsesFeed from "../Responses/Responses";
+
 function ShowEvent({posts}) {
 
   //gets the id of the current post using the url
@@ -23,7 +26,8 @@ function ShowEvent({posts}) {
         <p><b>Description: </b>{post.description}</p>
         <p><b>Invitees: </b>{post.invitees}</p>
         <h3>Responses</h3>
-        <br/>
+        <NewResponse post_id={post.id}/>
+        <ResponsesFeed />
         <h3>Comments</h3>
         <NewComment post_id={post.id}/>
         <CommentsFeed />

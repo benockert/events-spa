@@ -8,6 +8,17 @@ defmodule Events.Responses do
 
   alias Events.Responses.Response
 
+  # creates new default responses
+  def create_responses(post) do
+    IO.inspect(post.invitees)
+
+    post.invitees
+    |> String.split(", ")
+    |> Enum.map(fn e -> Repo.insert!(%Response{response: "No response",
+                                               user_id: Users.get_user_by_email!(e).id,
+                                               post_id: post.id}) end)
+  end
+
   @doc """
   Returns the list of responses.
 
@@ -37,6 +48,21 @@ defmodule Events.Responses do
   """
   def get_response!(id), do: Repo.get!(Response, id)
 
+  # checks if the attributes of this response match the post and user id of the given response
+  def dup?(attrs, response) do
+    Map.get(attrs, "post_id") === response.post_id && Integer.to_string(Map.get(attrs, "user_id")) === Integer.to_string(response.user_id)
+  end
+
+  # returns true if the user and post id of the two responses are the same
+  def check_duplicates(attrs, responses) do
+    IO.inspect("We here")
+    IO.inspect(attrs)
+    IO.inspect(responses)
+    responses
+    |> Enum.filter(fn resp -> dup?(attrs, resp) end)
+    |> Enum.at(0)
+  end
+
   @doc """
   Creates a response.
 
@@ -50,7 +76,15 @@ defmodule Events.Responses do
 
   """
   def create_response(attrs \\ %{}) do
+  # deletes previous responses from the same user on the same post, if any
+    duplicate = check_duplicates(attrs, list_responses())
+    IO.inspect(duplicate)
+    if duplicate do
+      delete_response(duplicate)
+    end
+
     %Response{}
+    |> Repo.preload(:user)
     |> Response.changeset(attrs)
     |> Repo.insert()
   end

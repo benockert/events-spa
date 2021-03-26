@@ -13,6 +13,7 @@ defmodule EventsWeb.PostController do
 
   def create(conn, %{"post" => post_params}) do
     with {:ok, %Post{} = post} <- Posts.create_post(post_params) do
+      #Responses.create_responses(post)
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.post_path(conn, :show, post))
