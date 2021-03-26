@@ -31,8 +31,7 @@ function NewEvent() {
 
   function onSubmit(ev) {
     ev.preventDefault();
-    console.log(ev);
-    console.log(post);
+    
     // get rid of the email msg entry
     let data = pick(post, ['title', 'date', 'description', 'invitees']);
     // add the user_id to the post

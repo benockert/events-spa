@@ -27,7 +27,25 @@ function Event({post}) {
 }
 
 function EventsFeed({posts}) {
-  let cards = posts.map((post) => <Event post={post} key={post.id} />);
+  let session = localStorage.getItem("session");
+
+  if (!session) {
+    return (
+      <div>
+        <h2>Your Events Feed</h2>
+        <p>Please login or register to view this page.</p>
+      </div>
+    );
+  }
+
+  let session_email = session.split("\"")[3];
+  let events = posts.filter((p) =>
+    p.invitees.includes(session_email) ||
+    p.user.email === session_email
+  );
+
+  let cards = events.map((post) => <Event post={post} key={post.id} />);
+
   return (
     <div>
       <h2>Your Events Feed</h2>

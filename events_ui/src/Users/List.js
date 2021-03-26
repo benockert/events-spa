@@ -3,6 +3,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function ListUsers({users}) {
+  let session = localStorage.getItem("session");
+  if (!session) {
+    return (
+      <div>
+        <h2>List Users</h2>
+        <p>Please login or register to view this page.</p>
+      </div>
+    );
+  }
+
   let rows = users.map((user) => (
     <tr key={user.id}>
       <td>{user.name}</td>

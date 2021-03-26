@@ -1,6 +1,7 @@
 import store from './store';
 
 const URL = "http://events-spa.benockert.site/api/v1";
+//const URL = "http://localhost:4000/api/v1";
 
 async function api_get(path) {
     let text = await fetch( URL + path, {});
@@ -12,9 +13,7 @@ async function api_post(path, data) {
   let req = {method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)};
-  console.log("to be sent", req)
   let text = await fetch( URL + path, req);
-  console.log("response", text);
   let resp = await text.json();
   return resp;
 }
@@ -38,7 +37,6 @@ export function get_posts() {
 }
 
 export function new_post(post) {
-  console.log(post)
   return api_post("/posts", {post});
 }
 
@@ -50,7 +48,6 @@ export function get_responses() {
 }
 
 export function new_response(response) {
-  console.log("response", response)
   return api_post("/responses", {response});
 }
 
@@ -62,13 +59,11 @@ export function get_comments() {
 }
 
 export function new_comment(comment) {
-  console.log(comment)
   return api_post("/comments", {comment});
 }
 
 export function api_login(email, password) {
   api_post("/session", {email, password}).then((data) => {
-    console.log("login response", data);
     if (data.session) {
       let action = {
         type: 'session/set',

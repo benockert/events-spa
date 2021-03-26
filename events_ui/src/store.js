@@ -14,11 +14,13 @@ export function get_user_id() {
 function save_session(sess) {
   let session = Object.assign({}, sess, {time: Date.now()});
   localStorage.setItem("session", JSON.stringify(session));
+  window.location.reload(false);
 }
 
 //clears the session when a user logs out
 function clear_session() {
   localStorage.removeItem("session");
+  window.location.reload(false);
 }
 
 //user session restore on page refresh (if still exists)
@@ -110,12 +112,10 @@ function error(state = null, action) {
 
 //----------------------------------------------------------
 function root_reducer(state, action) {
-    console.log("root_reducer", state, action);
     let reducer = combineReducers({
         session, users, posts, responses, comments, error
     });
 
-    console.log("state", reducer(state, action))
     return reducer(state, action);
 }
 
